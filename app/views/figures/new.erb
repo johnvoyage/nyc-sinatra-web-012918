@@ -1,25 +1,48 @@
 
 
 <form method="post" action="/figures">
-  <p>Name:<INPUT type="text" name="name"></p>
+  <p>Name:<INPUT type="text" name="figure[name]" id='figure_name'></p>
 
-		<label>Choose an existing owner:</label>
+    <label>Choose an existing title:</label>
+    <br></br>
+
+    <% Title.all.each do |title| %>
+      <input type="checkbox" name="figure[title_ids][]" value="<%=title.id%>" id="title_<%=title.id%>">
+      <%=title.name%>
+      </input>
+    <% end %>
+
+    <br></br>
+    <label>and/or, create a new title:</label>
+    <br></br>
+
+    <label>Name:</label>
+    <% Title.all.each do |title| %>
+
+
+      <input type="text" name="title[name]" value="<%= title.name %>" id="title_name"></input>
+    <% end %>
+    <br></br>
+
+		<label>Choose an existing landmark:</label>
 	  <br></br>
 
-	  <% @owners.each do |owner| %>
-	    <input type="checkbox" name="pet[owner_id]" value="<%=owner.id%>" id="<%=owner.id%>">
-	    <%=owner.name%>
+	  <% Landmark.all.each do |landmark| %>
+	    <input type="checkbox" name="figure[landmark_ids][]" value="<%=landmark.id%>" id="<%=landmark.id%>">
+	    <%=landmark.name%>
 	    </input>
 	  <% end %>
 
 	  <br></br>
-	  <label>and/or, create a new owner:</label>
+	  <label>and/or, create a new landmark:</label>
 	  <br></br>
 	  <label>Name:</label>
-	    <input type="text" name="owner[name]" id="owner_name"></input>
-
+    <% Landmark.all.each do |landmark| %>
+	    <input type="text" name="landmark[name]" value="<%= landmark.name %>" id="landmark_name"></input>
+      <% end %>
 	  <br></br>
 
 
-  <input type="submit">
+
+  <input type="submit", value="Create New Figure">
 </form>
